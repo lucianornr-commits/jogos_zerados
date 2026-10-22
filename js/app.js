@@ -456,6 +456,21 @@ function formatarTempo(total) {
   return `${horas}h ${String(minutos).padStart(2, "0")}m`;
 }
 
+/* ===== FORMATAR NOMES DOS GÊNEROS ===== */
+
+function formatarGenero(valor) {
+  if (!valor) return "";
+
+  const siglas = ["RPG", "FPS"];
+
+  return String(valor)
+    .toLocaleLowerCase("pt-BR")
+    .replace(/(^|[\s/])([a-zà-ÿ])/g, (texto, separador, letra) =>
+      separador + letra.toLocaleUpperCase("pt-BR")
+    )
+    .replace(/\b(rpg|fps)\b/gi, sigla => sigla.toUpperCase());
+}
+
 // Mostrar a dificuldade com o nome correto
 function formatarDificuldade(valor) {
   const dificuldades = {
@@ -1146,9 +1161,9 @@ const correspondeReplay = !replaySelecionado || jogo.replay === "sim";
           ${textoSeguro(jogo.developer || "Desenvolvedora não informada")}
         </div>
 
-        <div class="card-jogo-genero">
-          ${textoSeguro(jogo.genero)}${jogo.subgenero?.trim() ? " / " + textoSeguro(jogo.subgenero.trim()) : ""}
-        </div>
+      <div class="card-jogo-genero">
+      ${textoSeguro(formatarGenero(jogo.genero))}${jogo.subgenero?.trim() ? " / " + textoSeguro(formatarGenero(jogo.subgenero.trim())) : ""}
+      </div>
         
        <div class="card-jogo-avaliacao">
 
