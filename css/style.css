@@ -1406,6 +1406,8 @@ button { color: inherit; }
   font-size: 13px;
   text-decoration: underline;
   cursor: pointer;
+  margin-right: -20px;
+  margin-top: 3px;
 }
 
 #botao-backup:hover {
