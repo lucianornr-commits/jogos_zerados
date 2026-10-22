@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Jogos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <i data-lucide="gamepad-2" class="brand-icon"></i>
+        <span>MENU</span>
+      </div>
+
+      <nav class="navigation" aria-label="Menu principal">
+        <button class="nav-item active" data-section="zerados">
+          <i data-lucide="trophy"></i><span>Zerados</span>
+        </button>
+        <button class="nav-item" data-section="backlog">
+          <i data-lucide="clock-3"></i><span>Backlog</span>
+        </button>
+        <button class="nav-item" data-section="desafios">
+          <i data-lucide="target"></i><span>Desafios</span>
+        </button>
+        <button class="nav-item" data-section="dropados">
+          <i data-lucide="x"></i><span>Dropados</span>
+        </button>
+        <button class="nav-item" data-section="aquisicoes">
+          <i data-lucide="shopping-cart"></i><span>Aquisições</span>
+        </button>
+        <button class="nav-item" data-section="hi-scores">
+          <i data-lucide="chart-no-axes-column-increasing"></i><span>Hi-Scores</span>
+        </button>
+      </nav>
+
+      
+<!-- ===== LOGIN NA BARRA LATERAL ===== -->
+<div class="sidebar-login">
+  <div id="modal-login">
+    <form id="form-login">
+      <h3>Login</h3>
+
+      <label for="login-email">E-mail</label>
+      <input
+        type="email"
+        id="login-email"
+        required
+        autocomplete="username"
+      >
+
+      <label for="login-senha">Senha</label>
+      <input
+        type="password"
+        id="login-senha"
+        required
+        autocomplete="current-password"
+      >
+
+      <button type="submit">Entrar</button>
+      
+<!-- ===== MENSAGEM DE LOGIN E LINK SAIR ===== -->
+<p>
+  <span id="login-mensagem"></span>
+  <a href="#" id="botao-sair" hidden>Sair</a>
+</p>
+
+    </form>
+  </div>
+</div>
+
+
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <form class="search" id="search-form">
+          <input type="search" placeholder="Buscar jogos..." aria-label="Buscar jogos">
+          <button type="submit" aria-label="Buscar">
+            <i data-lucide="search"></i>
+          </button>
+        </form>
+        <button class="add-button" id="add-game">
+          <i data-lucide="plus"></i><span>Adicionar jogo</span>
+        </button>
+      </header>
+
+      <section class="page-heading">
+  <div class="heading-icon"><i data-lucide="trophy"></i></div>
+  <h1 id="page-title">Jogos Zerados</h1>
+</section>
+
+<!-- ===== CARDS DE ESTATÍSTICAS ===== -->
+
+<div class="linha-dashboard">
+<section class="estatisticas">
+
+  <div class="estatistica-card">
+  <div class="estatistica-icone">
+    <i data-lucide="trophy"></i>
+</div>
+  <span class="estatistica-titulo"><b>Total Zerados</b></span>
+  <strong class="estatistica-numero" id="total-zerados">0</strong>
+  <span class="estatistica-legenda">Jogos</span>
+</div>
+
+  <div class="estatistica-card">
+  <div class="estatistica-icone">
+    <i data-lucide="clock"></i>
+  </div>
+  <span class="estatistica-titulo"><b> Tempo Total</b></span>
+  <strong class="estatistica-numero" id="tempo-total">0h 00min</strong>
+  <span class="estatistica-legenda">Horas Jogadas</span>
+</div>
+
+<div class="estatistica-card">
+  <div class="estatistica-icone">
+    <i data-lucide="trophy" class="icone-trofeu-menor"></i>
+    <i data-lucide="calendar-days" class="icone-calendario"></i>
+  </div>
+  <span class="estatistica-titulo">
+  <b id="titulo-zerados-ano">Zerados em 2026</b>
+</span>
+<strong class="estatistica-numero" id="zerados-ano">0</strong>
+<span class="estatistica-legenda">Jogos zerados</span>
+</div>
+
+  <div class="estatistica-card">
+  <div class="estatistica-icone">
+    <i data-lucide="clock"></i>
+    <i data-lucide="calendar-days"></i>
+  </div>
+  <span class="estatistica-titulo">
+  <b id="titulo-tempo-ano">Tempo em 2026</b>
+</span>
+<strong class="estatistica-numero" id="tempo-ano">0H 00M</strong>
+<span class="estatistica-legenda">Horas jogadas</span>
+</div>
+
+  <!-- QUINTO CARD: ESTATÍSTICAS POR ANO -->
+<div class="estatistica-card estatistica-card-largo">
+
+  <div class="historico-cabecalho">
+    <div class="historico-titulo">
+      <i data-lucide="chart-column-increasing"></i>
+      <span>Estatísticas por ano</span>
+    </div>
+
+    <select id="historico-ano" aria-label="Selecionar ano">
+</select>
+
+  </div>
+
+  <div class="historico-resultados">
+
+    <div class="historico-indicador">
+      <span>
+        <i data-lucide="trophy"></i>
+        Jogos zerados
+      </span>
+      <strong id="historico-jogos">0</strong>
+    </div>
+
+    <div class="historico-indicador">
+      <span>
+        <i data-lucide="clock"></i>
+        Horas jogadas
+      </span>
+      <strong id="historico-horas">0</strong>
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+<!-- RANKINGS DE GÊNEROS E PLATAFORMAS / Quinto e sexto card -->
+<section class="rankings">
+
+  <!-- GÊNEROS -->
+  <div class="ranking-card">
+    <div class="ranking-titulo">
+      <i data-lucide="gamepad-2"></i>
+      <span>Gêneros mais jogados</span>
+    </div>
+
+    <div class="ranking-lista" id="ranking-generos">
+      <div class="ranking-item"><span>PLATAFORMA</span><strong>0</strong></div>
+      <div class="ranking-item"><span>AÇÃO/AVENTURA</span><strong>0</strong></div>
+      <div class="ranking-item"><span>CORRIDA</span><strong>0</strong></div>
+      <div class="ranking-item"><span>ESPORTE</span><strong>0</strong></div>
+      <div class="ranking-item"><span>METROIDVANIA</span><strong>0</strong></div>
+      <div class="ranking-item"><span>MUNDO ABERTO</span><strong>0</strong></div>
+      <div class="ranking-item"><span>RPG</span><strong>0</strong></div>
+      <div class="ranking-item"><span>ESTRATÉGIA</span><strong>0</strong></div>
+      <div class="ranking-item"><span>POINT AND CLICK</span><strong>0</strong></div>
+      <div class="ranking-item"><span>FPS</span><strong>0</strong></div>
+      <div class="ranking-item"><span>SHOOT 'EM UP</span><strong>0</strong></div>
+      <div class="ranking-item"><span>PUZZLE</span><strong>0</strong></div>
+      <div class="ranking-item"><span>SURVIVAL HORROR</span><strong>0</strong></div>
+      <div class="ranking-item"><span>LUTA</span><strong>0</strong></div>
+      <div class="ranking-item"><span>WALKING SIMULATOR</span><strong>0</strong></div>
+      <div class="ranking-item"><span>BEAT N' UP / H. SLASH</span><strong>0</strong></div>
+    </div>
+  </div>
+
+  <!-- PLATAFORMAS -->
+  <div class="ranking-card">
+    <div class="ranking-titulo">
+      <i data-lucide="monitor"></i>
+      <span>Plataformas mais jogadas</span>
+    </div>
+
+    <div class="ranking-lista" id="ranking-plataformas">
+      <div class="ranking-item"><span>PC</span><strong>0</strong></div>
+      <div class="ranking-item"><span>SNES</span><strong>0</strong></div>
+      <div class="ranking-item"><span>WII</span><strong>0</strong></div>
+      <div class="ranking-item"><span>NINTENDO 64</span><strong>0</strong></div>
+      <div class="ranking-item"><span>MEGA DRIVE</span><strong>0</strong></div>
+      <div class="ranking-item"><span>MASTER SYSTEM</span><strong>0</strong></div>
+      <div class="ranking-item"><span>ATARI</span><strong>0</strong></div>
+      <div class="ranking-item"><span>PS 1</span><strong>0</strong></div>
+      <div class="ranking-item"><span>PS 2</span><strong>0</strong></div>
+      <div class="ranking-item"><span>NINTENDO DS</span><strong>0</strong></div>
+      <div class="ranking-item"><span>NINTENDO 3DS</span><strong>0</strong></div>
+      <div class="ranking-item"><span>PSP</span><strong>0</strong></div>
+      <div class="ranking-item"><span>GAME BOY</span><strong>0</strong></div>
+      <div class="ranking-item"><span>GAME BOY ADVANCE</span><strong>0</strong></div>
+      <div class="ranking-item"><span>ARCADE</span><strong>0</strong></div>
+      <div class="ranking-item"><span>EMULAÇÃO</span><strong>0</strong></div>
+      <div class="ranking-item"><span>SWITCH</span><strong>0</strong></div>
+      <div class="ranking-item"><span>PS VITA</span><strong>0</strong></div>
+      <div class="ranking-item"><span>NES</span><strong>0</strong></div>
+      <div class="ranking-item"><span>TURBO GRAFX</span><strong>0</strong></div>
+      <div class="ranking-item"><span>GAME BOY COLOR</span><strong>0</strong></div>
+      <div class="ranking-item"><span>GAME GEAR</span><strong>0</strong></div>
+      <div class="ranking-item"><span>GAME CUBE</span><strong>0</strong></div>
+    </div>
+  </div>
+
+</section>
+
+</div> <!-- FIM DA LINHA DASHBOARD -->
+
+<!-- BARRA DE FILTROS -->
+<section class="barra-filtros" aria-label="Filtros de jogos">
+
+  <div class="filtro-grupo">
+    <label for="filtro-ano">Ano:</label>
+
+    <select id="filtro-ano">
+      <option value="">Todos</option>
+    </select>
+  </div>
+
+  <div class="filtro-grupo">
+  <label for="filtro-ano-zerado">Ano zerado:</label>
+
+  <select id="filtro-ano-zerado">
+    <option value="">Todos</option>
+  </select>
+</div>
+
+<div class="filtro-grupo">
+  <label for="filtro-plataforma">Plataforma:</label>
+
+  <select id="filtro-plataforma">
+    <option value="">Todos</option>
+  </select>
+</div>
+
+<div class="filtro-grupo">
+  <label for="filtro-genero">Gênero:</label>
+
+  <select id="filtro-genero">
+    <option value="">Todos</option>
+  </select>
+</div>
+
+<!-- ===== FILTRO POR RANKING ===== -->
+
+<div class="filtro-grupo">
+  <label for="filtro-ranking">Ranking:</label>
+
+  <select id="filtro-ranking">
+    <option value="">Todos</option>
+  </select>
+</div>
+
+<!-- ===== FILTRO POR DIFICULDADE ===== -->
+
+<div class="filtro-grupo">
+  <label for="filtro-dificuldade">Dificuldade:</label>
+
+  <select id="filtro-dificuldade">
+    <option value="">Todos</option>
+  </select>
+</div>
+
+<!-- ===== FILTROS BR E REPLAY ===== -->
+<div class="filtros-icones">
+
+  <label class="filtro-icone" title="Filtrar jogos brasileiros">
+    <input type="checkbox" id="filtro-br">
+    <img src="https://flagcdn.com/br.svg"
+     alt=""
+     aria-hidden="true"
+     class="icone-bandeira-br">
+  </label>
+
+  <label class="filtro-icone" title="Filtrar jogos em Replay">
+    <input type="checkbox" id="filtro-replay">
+    <span aria-hidden="true">🔁</span>
+  </label>
+
+</div>
+
+<!-- ===== BOTÃO ZERAR FILTROS ===== -->
+<button type="button" id="btn-zerar-filtros">
+  Zerar filtros
+</button>
+
+</section>
+
+<!-- GALERIA DE JOGOS ZERADOS -->
+<section class="galeria-jogos" id="galeria-jogos">
+  <!-- Os cards serão criados automaticamente pelo JavaScript -->
+</section>
+
+    </main>
+  </div>
+  
+<!-- Janela de cadastro de jogos -->
+<div id="modal-jogo" class="modal-overlay" aria-hidden="true">
+  <div class="modal-conteudo" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+
+    <div class="modal-cabecalho">
+      <h2 id="modal-titulo">Adicionar jogo</h2>
+      <button type="button" id="fechar-modal" class="fechar-modal" aria-label="Fechar">×</button>
+    </div>
+
+    <form id="form-jogo" autocomplete="off">
+
+      <div class="campo">
+        <label for="nome">Nome do Jogo:</label>
+        <input type="text" id="nome" name="nome" required>
+      </div>
+
+      <div class="campo">
+  <label for="developer">Developer:</label>
+  <input
+    type="text"
+    id="developer"
+    name="developer"
+    placeholder="Ex: Capcom, Konami, Nintendo..."
+  >
+</div>
+
+      <!-- CAPA DO JOGO -->
+<div class="campo">
+  <label for="capa">URL da capa:</label>
+
+  <input
+    type="url"
+    id="capa"
+    name="capa"
+    placeholder="https://exemplo.com/capa.jpg"
+  >
+
+  <div class="capa-preview-container">
+    <img
+      id="capa-preview"
+      class="capa-preview"
+      alt="Pré-visualização da capa do jogo"
+    >
+
+    <span class="capa-preview-legenda">
+      Pré-visualização da capa
+    </span>
+  </div>
+</div>
+
+      <div class="form-grid">
+
+        <div class="campo">
+          <label for="nacional">Nacional?</label>
+          <select id="nacional" name="nacional">
+            <option value="nao">Não</option>
+            <option value="sim">Sim</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="ano">Ano:</label>
+          <input type="number" id="ano" name="ano" min="1970" max="2100">
+        </div>
+
+        <div class="campo">
+          <label for="replay">Replay?</label>
+          <select id="replay" name="replay">
+            <option value="nao">Não</option>
+            <option value="sim">Sim</option>
+          </select>
+        </div>
+
+        
+<div class="campo">
+  <label for="plataforma">Plataforma:</label>
+
+  <select id="plataforma" name="plataforma" required>
+    <option value="" disabled selected>Selecione a plataforma</option>
+
+    <option value="ARCADE">ARCADE</option>
+    <option value="ATARI">ATARI</option>
+    <option value="EMULAÇÃO">EMULAÇÃO</option>
+    <option value="GAME BOY">GAME BOY</option>
+    <option value="GAME BOY ADVANCE">GAME BOY ADVANCE</option>
+    <option value="GAME BOY COLOR">GAME BOY COLOR</option>
+    <option value="GAME CUBE">GAME CUBE</option>
+    <option value="GAME GEAR">GAME GEAR</option>
+    <option value="MASTER SYSTEM">MASTER SYSTEM</option>
+    <option value="MEGA DRIVE">MEGA DRIVE</option>
+    <option value="NES">NES</option>
+    <option value="NINTENDO 3DS">NINTENDO 3DS</option>
+    <option value="NINTENDO 64">NINTENDO 64</option>
+    <option value="NINTENDO DS">NINTENDO DS</option>
+    <option value="PC">PC</option>
+    <option value="PS 1">PS 1</option>
+    <option value="PS 2">PS 2</option>
+    <option value="PS VITA">PS VITA</option>
+    <option value="PSP">PSP</option>
+    <option value="SNES">SNES</option>
+    <option value="SWITCH">SWITCH</option>
+    <option value="TURBO GRAFX">TURBO GRAFX</option>
+    <option value="WII">WII</option>
+
+  </select>
+</div>
+       
+<div class="campo">
+  <label for="genero">Gênero:</label>
+
+  <select id="genero" name="genero" required>
+    <option value="" disabled selected>Selecione o gênero</option>
+
+    <option value="PLATAFORMA">PLATAFORMA</option>
+    <option value="AÇÃO/AVENTURA">AÇÃO/AVENTURA</option>
+    <option value="BEAT N' UP / H. SLASH">BEAT N' UP / H. SLASH</option>
+    <option value="CORRIDA">CORRIDA</option>
+    <option value="ESPORTE">ESPORTE</option>
+    <option value="ESTRATÉGIA">ESTRATÉGIA</option>
+    <option value="FPS">FPS</option>
+    <option value="LUTA">LUTA</option>
+    <option value="METROIDVANIA">METROIDVANIA</option>
+    <option value="MUNDO ABERTO">MUNDO ABERTO</option>
+    <option value="POINT AND CLICK">POINT AND CLICK</option>
+    <option value="PUZZLE">PUZZLE</option>
+    <option value="RPG">RPG</option>
+    <option value="SHOOT 'EM UP">SHOOT 'EM UP</option>
+    <option value="SURVIVAL HORROR">SURVIVAL HORROR</option>
+    <option value="WALKING SIMULATOR">WALKING SIMULATOR</option>
+
+  </select>
+</div>
+
+        <div class="campo">
+          <label for="subgenero">Sub-gênero:</label>
+          <input type="text" id="subgenero" name="subgenero">
+        </div>
+
+        <div class="campo">
+          <label for="data-final">Data final:</label>
+          <input type="date" id="data-final" name="dataFinal">
+        </div>
+
+        <div class="campo">
+  <label>Tempo de jogo:</label>
+
+  <div class="tempo-container">
+
+    <div class="tempo-item">
+      <input type="number" id="horas" name="horas"
+             min="0" step="1" placeholder="0" required>
+      <span>Horas</span>
+    </div>
+
+    <div class="tempo-item">
+      <input type="number" id="minutos" name="minutos"
+             min="0" max="59" step="1" placeholder="0" required>
+      <span>Minutos</span>
+    </div>
+
+  </div>
+</div>
+
+        <div class="campo">
+          <label for="dificuldade">Dificuldade:</label>
+          <select id="dificuldade" name="dificuldade">
+            <option value="">Selecione</option>
+            <option value="muito-facil">Muito Fácil</option>
+            <option value="facil">Fácil</option>
+            <option value="normal">Normal</option>
+            <option value="dificil">Difícil</option>
+            <option value="muito-dificil">Impossível</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="ranking">Ranking:</label>
+          <select id="ranking" name="ranking">
+            <option value="">Selecione</option>
+            <option value="1">1 estrela</option>
+            <option value="2">2 estrelas</option>
+            <option value="3">3 estrelas</option>
+            <option value="4">4 estrelas</option>
+            <option value="5">5 estrelas</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="modal-acoes">
+        <button type="button" id="cancelar-jogo" class="btn-cancelar">Cancelar</button>
+        <button type="submit" id="botao-salvar-jogo" class="btn-salvar">Salvar jogo</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+  <!-- Notificação de sucesso -->
+<div id="notificacao" class="notificacao" role="status" aria-live="polite">
+  <i data-lucide="check-circle"></i>
+  <span>Jogo salvo com sucesso!</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
+
