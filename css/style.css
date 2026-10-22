@@ -1398,6 +1398,20 @@ button { color: inherit; }
   margin-left: 10px;
 }
 
+/* ===== LINK DE BACKUP ===== */
+
+#botao-backup {
+  float: right;
+  color: #ff4444;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#botao-backup:hover {
+  color: #ff7777;
+}
+
 
 
 

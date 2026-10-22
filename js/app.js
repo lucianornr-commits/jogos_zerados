@@ -30,7 +30,8 @@ administradorAutenticado = true;
 
 document.querySelector("#login-mensagem").textContent = "Login autenticado!";
 document.querySelector("#botao-sair").hidden = false;
-
+/* ===== EXIBIR BACKUP APÓS LOGIN ===== */
+document.querySelector("#botao-backup").hidden = false;
 renderizarJogos();
 document.querySelector("#add-game").style.display = "";
 
@@ -67,13 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ===== EXIBIR LINK SAIR APÓS O LOGIN ===== */
 
 document.querySelector("#botao-sair").hidden = false;
-
+/* ===== EXIBIR BACKUP APÓS LOGIN ===== */
+document.querySelector("#botao-backup").hidden = false;
   
 /* ===== LIBERAR FERRAMENTAS APÓS O LOGIN ===== */
 
 administradorAutenticado = true;
 document.querySelector("#login-mensagem").textContent = "Login autenticado!";
 document.querySelector("#botao-sair").hidden = false;
+/* ===== EXIBIR BACKUP APÓS LOGIN ===== */
+document.querySelector("#botao-backup").hidden = false;
 document.querySelector("#add-game").style.display = "";
 renderizarJogos();
 
@@ -1325,7 +1329,75 @@ document.querySelector("#botao-sair").addEventListener("click", async (evento) =
 
   document.querySelector("#login-mensagem").textContent = "";
   document.querySelector("#botao-sair").hidden = true;
+  document.querySelector("#botao-backup").hidden = true;
   document.querySelector("#add-game").style.display = "none";
 
   renderizarJogos();
+});
+
+/* ===== BACKUP DA COLEÇÃO - EXPORTAR JSON ===== */
+
+async function fazerBackupColecao() {
+  if (!administradorAutenticado) {
+    alert("É necessário estar autenticado para fazer backup.");
+    return;
+  }
+
+  const { data: usuario, error: erroUsuario } = await banco.auth.getUser();
+
+  if (erroUsuario || !usuario.user) {
+    alert("Sessão inválida. Faça login novamente.");
+    return;
+  }
+
+  try {
+    const jogos = [];
+    const tamanhoPagina = 500;
+    let inicio = 0;
+
+    while (true) {
+      const { data, error } = await banco
+        .from("jogos")
+        .select("*")
+        .order("id", { ascending: true })
+        .range(inicio, inicio + tamanhoPagina - 1);
+
+      if (error) throw error;
+
+      jogos.push(...data);
+
+      if (data.length < tamanhoPagina) break;
+
+      inicio += tamanhoPagina;
+    }
+
+    const conteudo = JSON.stringify(jogos, null, 2);
+    const arquivo = new Blob([conteudo], { type: "application/json" });
+    const url = URL.createObjectURL(arquivo);
+
+    const dataAtual = new Date().toISOString().slice(0, 10);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `frankenstein_backup_${dataAtual}.json`;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    alert(`Backup realizado! ${jogos.length} jogos exportados.`);
+
+  } catch (erro) {
+    console.error("Erro ao realizar backup:", erro);
+    alert("Não foi possível realizar o backup. Nenhum arquivo foi gerado.");
+  }
+}
+
+/* ===== ACIONAR BACKUP AO CLICAR NO LINK ===== */
+
+document.querySelector("#botao-backup").addEventListener("click", async (evento) => {
+  evento.preventDefault();
+  await fazerBackupColecao();
 });
