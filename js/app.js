@@ -27,6 +27,7 @@ async function verificarLogin() {
 
 console.log("Administrador autenticado.");
 administradorAutenticado = true;
+document.querySelector("#form-login").style.display = "none";
 
 document.querySelector("#login-mensagem").textContent = "Login autenticado!";
 document.querySelector("#botao-sair").hidden = false;
@@ -63,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
   mensagem.textContent = "Login autenticado!";
+  document.querySelector("#form-login").style.display = "none";
 
   
 /* ===== EXIBIR LINK SAIR APÓS O LOGIN ===== */
@@ -89,9 +91,10 @@ console.log("Supabase conectado!", banco);
 
 // Testar leitura dos jogos no Supabase
 async function testarBanco() {
-  const { data, error } = await banco
-    .from("jogos")
-    .select("*");
+const { data, error } = await banco
+  .from("jogos")
+  .select("*")
+  .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Erro ao consultar jogos:", error);
@@ -1341,7 +1344,7 @@ document.querySelector("#botao-sair").addEventListener("click", async (evento) =
   }
 
   administradorAutenticado = false;
-
+  document.querySelector("#form-login").style.display = "";
   document.querySelector("#login-mensagem").textContent = "";
   document.querySelector("#botao-sair").hidden = true;
   document.querySelector("#botao-backup").hidden = true;
@@ -1374,7 +1377,7 @@ async function fazerBackupColecao() {
       const { data, error } = await banco
         .from("jogos")
         .select("*")
-        .order("id", { ascending: true })
+        .order("id", { ascending: false })
         .range(inicio, inicio + tamanhoPagina - 1);
 
       if (error) throw error;
