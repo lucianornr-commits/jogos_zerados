@@ -352,11 +352,12 @@
       <div class="campo">
   <label for="developer">Developer:</label>
   <input
-    type="text"
-    id="developer"
-    name="developer"
-    placeholder="Ex: Capcom, Konami, Nintendo..."
-  >
+  type="text"
+  id="developer"
+  name="developer"
+  placeholder="Ex: Capcom, Konami, Nintendo..."
+  required
+>
 </div>
 
       <!-- CAPA DO JOGO -->
@@ -395,7 +396,7 @@
 
         <div class="campo">
           <label for="ano">Ano:</label>
-          <input type="number" id="ano" name="ano" min="1970" max="2100">
+          <input type="number" id="ano" name="ano" min="1970" max="2100" required>
         </div>
 
         <div class="campo">
@@ -468,12 +469,12 @@
 
         <div class="campo">
           <label for="subgenero">Sub-gênero:</label>
-          <input type="text" id="subgenero" name="subgenero">
+          <input type="text" id="subgenero" name="subgenero" required>
         </div>
 
         <div class="campo">
           <label for="data-final">Data final:</label>
-          <input type="date" id="data-final" name="dataFinal">
+          <input type="date" id="data-final" name="dataFinal" required>
         </div>
 
         <div class="campo">
@@ -498,7 +499,7 @@
 
         <div class="campo">
           <label for="dificuldade">Dificuldade:</label>
-          <select id="dificuldade" name="dificuldade">
+          <select id="dificuldade" name="dificuldade" required>
             <option value="">Selecione</option>
             <option value="muito-facil">Muito Fácil</option>
             <option value="facil">Fácil</option>
@@ -510,7 +511,7 @@
 
         <div class="campo">
           <label for="ranking">Ranking:</label>
-          <select id="ranking" name="ranking">
+          <select id="ranking" name="ranking" required>
             <option value="">Selecione</option>
             <option value="1">1 estrela</option>
             <option value="2">2 estrelas</option>
@@ -522,12 +523,73 @@
 
       </div>
 
+    <!-- ===== REVIEW DO JOGO ===== -->
+
+<div class="campo campo-review">
+
+  <label class="review-checkbox">
+    <input type="checkbox" id="possui-review">
+    Possui review?
+  </label>
+
+  <div id="review-container" hidden>
+    <label for="review-texto">Review do jogo:</label>
+
+    <!-- ===== BARRA DE FORMATAÇÃO DA REVIEW ===== -->
+
+<div class="review-toolbar">
+  <button
+    type="button"
+    id="review-negrito"
+    title="Aplicar negrito"
+    aria-label="Aplicar negrito"
+  >
+    <strong>B</strong>
+  </button>
+</div>
+
+    <textarea
+      id="review-texto"
+      name="review"
+      rows="8"
+      placeholder="Escreva sua análise sobre o jogo..."
+    ></textarea>
+  </div>
+
+</div>
+
       <div class="modal-acoes">
         <button type="button" id="cancelar-jogo" class="btn-cancelar">Cancelar</button>
         <button type="submit" id="botao-salvar-jogo" class="btn-salvar">Salvar jogo</button>
       </div>
 
     </form>
+  </div>
+</div>
+
+<!-- ===== JANELA DE LEITURA DA REVIEW ===== -->
+
+<div id="modal-review" class="modal-overlay" aria-hidden="true">
+  <div
+    class="modal-conteudo modal-review-conteudo"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="review-titulo"
+  >
+
+    <div class="modal-cabecalho">
+      <h2 id="review-titulo">Review do jogo</h2>
+
+      <button
+        type="button"
+        id="fechar-review"
+        class="fechar-modal"
+        aria-label="Fechar review"
+      >×</button>
+    </div>
+
+    <div id="review-leitura"></div>
+
   </div>
 </div>
 

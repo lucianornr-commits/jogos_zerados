@@ -174,7 +174,7 @@ button { color: inherit; }
   display: flex;
   align-items: center;
   gap: 17px;
-  margin-top: -21px;
+  margin-top: -30px;
   padding-left: 5px;
 }
 
@@ -688,7 +688,7 @@ button { color: inherit; }
   gap: 12px;
   margin-top: 25px;
   flex-wrap: nowrap;
-  width: max-content;
+  width: 100%;
 }
 
 .linha-dashboard .estatisticas {
@@ -831,7 +831,7 @@ button { color: inherit; }
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
-  margin-top: 18px;
+  margin-top: 13px;
   width: 91%;
 }
 
@@ -850,7 +850,7 @@ button { color: inherit; }
 .card-jogo-capa {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 3 / 4.2;
   background: #101827;
 }
 
@@ -894,6 +894,7 @@ button { color: inherit; }
   align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
+  min-height: 34px;
 }
 
 .card-jogo-nome strong {
@@ -1263,7 +1264,7 @@ background-size: 16px;
 
 /* Efeito ao clicar */
 #btn-zerar-filtros:active {
-  transform: translate(24px, -6px);
+  transform: translate(0px, 1px);
 }
 
 /* ===== FILTROS BR E REPLAY ===== */
@@ -1342,7 +1343,7 @@ background-size: 16px;
   position: absolute;
   bottom: 10px;
   left: 16px;
-  width: 195px;
+  width: 170px;
   box-sizing: border-box;
 }
 
@@ -1374,7 +1375,7 @@ background-size: 16px;
 .sidebar-login button[type="submit"] {
   width: 100px;
   align-self: center;
-  padding: 6px 10px;
+  padding: 5px 8px;
   background-color: #3d2e96;
   color: #ffffff;
   border: none;
@@ -1419,7 +1420,7 @@ background-size: 16px;
   font-size: 13px;
   text-decoration: underline;
   cursor: pointer;
-  margin-right: -20px;
+  margin-right: -35px;
   margin-top: 3px;
 }
 
@@ -1486,4 +1487,197 @@ background-size: 16px;
 
 .barra-filtros .filtro-grupo label {
   text-align: left;
+}
+
+/* ===== CORES DAS DIFICULDADES NOS CARDS ===== */
+
+.card-jogo-rodape strong.dificuldade-muito-facil {
+  color: #00B050;
+}
+
+.card-jogo-rodape strong.dificuldade-facil {
+  color: #93C47D;
+}
+
+.card-jogo-rodape strong.dificuldade-normal {
+  color: #FFFF00;
+}
+
+.card-jogo-rodape strong.dificuldade-dificil {
+  color: #ED7D31;
+}
+
+.card-jogo-rodape strong.dificuldade-impossivel {
+  color: #FF0000;
+}
+
+/* ===== CAMPO DE REVIEW ===== */
+
+.campo-review {
+  margin-top: 22px;
+  width: 100%;
+}
+
+.campo-review .review-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: fit-content;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.campo-review .review-checkbox input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #7665f2;
+  cursor: pointer;
+}
+
+#review-container[hidden] {
+  display: none;
+}
+
+#review-container label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#review-texto {
+  display: block;
+  width: 100%;
+  min-height: 180px;
+  padding: 12px;
+  box-sizing: border-box;
+
+  background: #181630;
+  color: #ffffff;
+
+  border: 1px solid #514a85;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+
+  resize: vertical;
+  outline: none;
+}
+
+#review-texto:focus {
+  border-color: #7665f2;
+}
+
+/* ===== BOTÃO DE NEGRITO DA REVIEW ===== */
+
+.review-toolbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+#review-negrito {
+  width: 34px;
+  height: 30px;
+
+  background: #292454;
+  color: #ffffff;
+
+  border: 1px solid #514a85;
+  border-radius: 6px;
+
+  font-size: 15px;
+  cursor: pointer;
+
+  transition: background 0.2s;
+}
+
+#review-negrito:hover {
+  background: #6250df;
+}
+
+/* ===== JANELA DE LEITURA DA REVIEW ===== */
+
+.modal-review-conteudo {
+  width: 650px;
+  max-width: 90vw;
+  max-height: 85vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #292454;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.modal-review-conteudo .modal-cabecalho {
+  flex-shrink: 0;
+}
+
+#review-leitura {
+  padding: 22px 26px;
+
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.8;
+  text-align: justify;
+
+  white-space: pre-wrap;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+
+#review-leitura strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== EXIBIR JANELA DE REVIEW ===== */
+
+#modal-review.ativo {
+  display: flex;
+}
+
+/* ===== BOTÃO REVIEW NOS CARDS ===== */
+
+.card-jogo-review {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  padding: 5px 8px;
+
+  background: #292454;
+  color: #c9c1ff;
+
+  border: 1px solid #6250df;
+  border-radius: 6px;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+
+  cursor: pointer;
+  white-space: nowrap;
+
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Corrigir tamanho do ícone Review */
+.card-jogo-review svg {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  stroke-width: 2;
+}
+
+/* Efeito ao passar o mouse */
+.card-jogo-review:hover {
+  background: #6250df;
+  color: #ffffff;
 }

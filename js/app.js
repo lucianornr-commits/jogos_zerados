@@ -188,9 +188,15 @@ botaoAdicionar.addEventListener("click", () => {
   idJogoEmEdicao = null;
   atualizarModoFormulario();
   formularioJogo.reset();
+
+  // Reiniciar o campo de review
+  document.querySelector("#possui-review").checked = false;
+  document.querySelector("#review-container").hidden = true;
+
   atualizarPreviewCapa();
-  abrirModal(); 
+  abrirModal();
 });
+
 botaoFechar.addEventListener("click", fecharModal);
 botaoCancelar.addEventListener("click", fecharModal);
 
@@ -241,7 +247,12 @@ const dadosOnline = {
   nacional: dados.nacional,
   replay: dados.replay,
   dataFinal: dados.dataFinal || null,
-  tempoTotal: dados.tempoTotal
+  tempoTotal: dados.tempoTotal,
+
+  // Salvar review somente quando estiver marcada
+  review: document.querySelector("#possui-review").checked
+    ? (dados.review?.trim() || null)
+    : null
 };
 
 // Salvar jogo novo no Supabase
@@ -420,8 +431,16 @@ function editarJogo(jogo) {
   formularioJogo.elements.namedItem("minutos").value =
     tempoTotal % 60;
 
+ // Recuperar a review cadastrada
+  const possuiReview = Boolean(jogo.review?.trim());
+
+  document.querySelector("#possui-review").checked = possuiReview;
+  document.querySelector("#review-texto").value = jogo.review || "";
+  document.querySelector("#review-container").hidden = !possuiReview;
+
   atualizarPreviewCapa();
   abrirModal();
+
 }
 
 /* ===== CARDS DOS JOGOS ZERADOS ===== */
@@ -485,6 +504,19 @@ function formatarDificuldade(valor) {
   };
 
   return dificuldades[valor] || "Não informada";
+}
+
+// Classe de cor correspondente à dificuldade
+function classeCorDificuldade(valor) {
+  const classes = {
+    "muito-facil": "dificuldade-muito-facil",
+    "facil": "dificuldade-facil",
+    "normal": "dificuldade-normal",
+    "dificil": "dificuldade-dificil",
+    "muito-dificil": "dificuldade-impossivel"
+  };
+
+  return classes[valor] || "";
 }
 
 // Criar as estrelas de acordo com o ranking
@@ -1055,6 +1087,11 @@ function renderizarJogos() {
 
   const todosJogos = jogosOnline;
 
+  // Nome digitado no campo de busca
+const nomeBuscado = document.querySelector("#search-form input")
+  .value.trim().toLocaleLowerCase("pt-BR");
+
+
 /* ===== FILTROS: ANO, ANO ZERADO, PLATAFORMA, GÊNERO, RANKING E DIFICULDADE ===== */
 
 // Ano de lançamento
@@ -1083,6 +1120,9 @@ const replaySelecionado = document.querySelector("#filtro-replay").checked;
 
 // Aplicar os cinco filtros simultaneamente
 const jogos = todosJogos.filter(jogo => {
+  const correspondeNome = String(jogo.nome || "")
+  .toLocaleLowerCase("pt-BR")
+  .includes(nomeBuscado);
 
   const correspondeAno =
     !anoSelecionado || String(jogo.ano) === anoSelecionado;
@@ -1112,7 +1152,8 @@ const correspondeBR = !brSelecionado || jogo.nacional === "sim";
 // Verificar se o jogo está em Replay
 const correspondeReplay = !replaySelecionado || jogo.replay === "sim";
 
-  return correspondeAno &&
+  return correspondeNome &&
+       correspondeAno &&
        correspondeAnoZerado &&
        correspondePlataforma &&
        correspondeGenero &&
@@ -1174,6 +1215,18 @@ const correspondeReplay = !replaySelecionado || jogo.replay === "sim";
              aria-label="Avaliação: ${Number(jogo.ranking) || 0} de 5 estrelas">
           ${criarEstrelas(jogo.ranking)}
         </div>
+        ${jogo.review?.trim() ? `
+  <button
+    type="button"
+    class="card-jogo-review"
+    title="Ler review"
+    aria-label="Ler review de ${textoSeguro(jogo.nome)}"
+  >
+    <i data-lucide="book-open"></i>
+    <span>Review</span>
+  </button>
+
+` : ""}
         ${jogo.nacional === "sim"
     ? '<img class="card-jogo-bandeira" src="https://flagcdn.com/br.svg" alt="Bandeira do Brasil" title="Jogo brasileiro">'
     : ""}
@@ -1203,7 +1256,7 @@ const correspondeReplay = !replaySelecionado || jogo.replay === "sim";
         <div class="card-jogo-rodape">
           <div>
             <span>Dificuldade</span>
-            <strong>${formatarDificuldade(jogo.dificuldade)}</strong>
+            <strong class="${classeCorDificuldade(jogo.dificuldade)}">${formatarDificuldade(jogo.dificuldade)}</strong>
           </div>
 
           <div>
@@ -1266,6 +1319,15 @@ botaoExcluir.addEventListener("click", async () => {
   await recarregarJogos();
 });
 
+// ===== ABRIR REVIEW DO JOGO =====
+
+const botaoReviewCard = card.querySelector(".card-jogo-review");
+
+if (botaoReviewCard) {
+  botaoReviewCard.addEventListener("click", () => {
+    abrirReview(jogo);
+  });
+}
     galeriaJogos.appendChild(card);
   });
 
@@ -1277,6 +1339,18 @@ botaoExcluir.addEventListener("click", async () => {
 
 // Mostrar os jogos salvos ao abrir a página
 renderizarJogos();
+
+/* ===== BUSCA DE JOGOS PELO NOME ===== */
+
+const formularioBusca = document.querySelector("#search-form");
+const campoBusca = formularioBusca.querySelector("input");
+
+campoBusca.addEventListener("input", renderizarJogos);
+
+formularioBusca.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  renderizarJogos();
+});
 
 /* ===== MUDANÇA DO ANO NO HISTÓRICO ===== */
 
@@ -1419,3 +1493,91 @@ document.querySelector("#botao-backup").addEventListener("click", async (evento)
   evento.preventDefault();
   await fazerBackupColecao();
 });
+
+/* ===== EXIBIR CAMPO DE REVIEW ===== */
+
+const checkboxReview = document.querySelector("#possui-review");
+const containerReview = document.querySelector("#review-container");
+
+checkboxReview.addEventListener("change", () => {
+  containerReview.hidden = !checkboxReview.checked;
+});
+
+/* ===== FORMATAÇÃO EM NEGRITO DA REVIEW ===== */
+
+const botaoNegritoReview = document.querySelector("#review-negrito");
+const textoReview = document.querySelector("#review-texto");
+
+botaoNegritoReview.addEventListener("click", () => {
+
+  const inicio = textoReview.selectionStart;
+  const fim = textoReview.selectionEnd;
+
+  const texto = textoReview.value;
+  const selecionado = texto.substring(inicio, fim);
+
+  if (!selecionado) {
+    textoReview.focus();
+    return;
+  }
+
+  const formatado = `**${selecionado}**`;
+
+  textoReview.value =
+    texto.substring(0, inicio) +
+    formatado +
+    texto.substring(fim);
+
+  textoReview.focus();
+
+  // Manter o trecho selecionado após aplicar o negrito
+  textoReview.setSelectionRange(inicio + 2, inicio + 2 + selecionado.length);
+
+});
+
+
+/* ===== JANELA DE LEITURA DAS REVIEWS ===== */
+
+const modalReview = document.querySelector("#modal-review");
+const tituloReview = document.querySelector("#review-titulo");
+const leituraReview = document.querySelector("#review-leitura");
+const fecharReview = document.querySelector("#fechar-review");
+
+// Converter texto da review em HTML seguro
+function formatarTextoReview(texto) {
+
+  const textoProtegido = textoSeguro(texto || "");
+
+  return textoProtegido.replace(
+    /\*\*(.+?)\*\*/g,
+    "<strong>$1</strong>"
+  );
+
+}
+
+// Abrir janela com a review do jogo
+function abrirReview(jogo) {
+
+  if (!jogo.review?.trim()) return;
+
+  tituloReview.textContent = `${jogo.nome}`;
+
+  leituraReview.innerHTML = formatarTextoReview(jogo.review);
+
+  modalReview.classList.add("ativo");
+  modalReview.setAttribute("aria-hidden", "false");
+
+}
+
+// Fechar janela de review
+function fecharJanelaReview() {
+
+  modalReview.classList.remove("ativo");
+  modalReview.setAttribute("aria-hidden", "true");
+
+}
+
+// Fechar pelo botão X
+fecharReview.addEventListener("click", fecharJanelaReview);
+
+
