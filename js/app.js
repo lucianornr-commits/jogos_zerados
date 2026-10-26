@@ -1117,6 +1117,8 @@ const brSelecionado = document.querySelector("#filtro-br").checked;
 
 // ===== FILTRO DE JOGOS EM REPLAY =====
 const replaySelecionado = document.querySelector("#filtro-replay").checked;
+// ===== FILTRO DE JOGOS COM REVIEW =====
+const reviewSelecionado = document.querySelector("#filtro-review").checked;
 
 // Aplicar os cinco filtros simultaneamente
 const jogos = todosJogos.filter(jogo => {
@@ -1151,6 +1153,9 @@ const jogos = todosJogos.filter(jogo => {
 const correspondeBR = !brSelecionado || jogo.nacional === "sim";
 // Verificar se o jogo está em Replay
 const correspondeReplay = !replaySelecionado || jogo.replay === "sim";
+// Verificar se o jogo possui review
+const correspondeReview =
+  !reviewSelecionado || Boolean(jogo.review?.trim());
 
   return correspondeNome &&
        correspondeAno &&
@@ -1160,7 +1165,8 @@ const correspondeReplay = !replaySelecionado || jogo.replay === "sim";
        correspondeRanking &&
        correspondeDificuldade &&
        correspondeBR &&
-       correspondeReplay;
+       correspondeReplay &&
+       correspondeReview;
 
 });
 
@@ -1173,6 +1179,9 @@ const correspondeReplay = !replaySelecionado || jogo.replay === "sim";
     card.innerHTML = `
   <div class="card-jogo-capa">
     <img class="card-jogo-imagem" alt="">
+    ${jogo.nacional === "sim"
+    ? '<img class="card-jogo-bandeira" src="https://flagcdn.com/br.svg" alt="Bandeira do Brasil" title="Jogo brasileiro">'
+    : ""}
 <button
   type="button"
   class="card-jogo-editar"
@@ -1227,9 +1236,7 @@ const correspondeReplay = !replaySelecionado || jogo.replay === "sim";
   </button>
 
 ` : ""}
-        ${jogo.nacional === "sim"
-    ? '<img class="card-jogo-bandeira" src="https://flagcdn.com/br.svg" alt="Bandeira do Brasil" title="Jogo brasileiro">'
-    : ""}
+        
 
 </div>
 
@@ -1389,6 +1396,10 @@ document.querySelector("#filtro-br").addEventListener("change", renderizarJogos)
 /* ===== EVENTO DO FILTRO REPLAY ===== */
 
 document.querySelector("#filtro-replay").addEventListener("change", renderizarJogos);
+
+/* ===== EVENTO DO FILTRO REVIEW ===== */
+
+document.querySelector("#filtro-review").addEventListener("change", renderizarJogos);
 
 /* ===== BOTÃO ZERAR FILTROS ===== */
 

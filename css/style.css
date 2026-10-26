@@ -1236,7 +1236,7 @@ background-size: 16px;
 
 #btn-zerar-filtros {
   align-self: center;
-  transform: none;
+  transform: translateX(6px);
   padding: 7px 12px;
 
   background-color: #54217d;
@@ -1658,7 +1658,7 @@ background-size: 16px;
   border-radius: 6px;
 
   font-family: inherit;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   line-height: 1;
 
@@ -1670,8 +1670,8 @@ background-size: 16px;
 
 /* Corrigir tamanho do ícone Review */
 .card-jogo-review svg {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   flex-shrink: 0;
   stroke-width: 2;
 }
@@ -1680,4 +1680,27 @@ background-size: 16px;
 .card-jogo-review:hover {
   background: #6250df;
   color: #ffffff;
+}
+
+/* ===== BANDEIRA BRASILEIRA SOBRE A CAPA ===== */
+
+.card-jogo-capa {
+  position: relative;
+}
+
+.card-jogo-capa .card-jogo-bandeira {
+  position: absolute;
+
+  bottom: 8px;
+  right: 8px;
+
+  width: 24px;
+  height: 16px;
+
+  object-fit: cover;
+  border-radius: 3px;
+
+  z-index: 2;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
