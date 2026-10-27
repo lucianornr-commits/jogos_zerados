@@ -1704,3 +1704,165 @@ background-size: 16px;
 
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
+
+
+/* =========================================
+   BACKLOG — ESTILO DA PÁGINA
+========================================= */
+
+/* Área do botão Adicionar jogo */
+.backlog-cabecalho {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0 0 20px;
+}
+
+/* Container da tabela */
+.backlog-lista {
+  width: 100%;
+  overflow-x: auto;
+  background: #151f31;
+  border: 1px solid #26354d;
+  border-radius: 10px;
+}
+
+/* Tabela principal */
+.backlog-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: inherit;
+  font-size: 13px;
+  color: #e5e9f3;
+}
+
+/* Cabeçalho das colunas */
+.backlog-tabela thead {
+  background: #1b2940;
+}
+
+.backlog-tabela th {
+  padding: 15px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #b9afff;
+  border-bottom: 1px solid #34415b;
+}
+
+/* Linhas dos jogos */
+.backlog-tabela td {
+  padding: 13px 12px;
+  border-bottom: 1px solid #26354d;
+  vertical-align: middle;
+}
+
+/* Remover borda da última linha */
+.backlog-tabela tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Destaque ao passar o mouse */
+.backlog-tabela tbody tr:hover {
+  background: #1b2940;
+}
+
+/* Nome do jogo */
+.backlog-tabela td:first-child {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Etiquetas de prioridade */
+.backlog-prioridade {
+  display: inline-block;
+  min-width: 65px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Prioridade alta */
+.backlog-prioridade.alta {
+  background: rgba(255, 95, 105, 0.15);
+  color: #ff737c;
+}
+
+/* Prioridade média */
+.backlog-prioridade.media {
+  background: rgba(255, 196, 73, 0.15);
+  color: #ffd166;
+}
+
+/* Prioridade baixa */
+.backlog-prioridade.baixa {
+  background: rgba(83, 205, 140, 0.15);
+  color: #70d9a0;
+}
+
+/* Botões de editar e excluir */
+.backlog-acoes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.backlog-acoes button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: #1b2940;
+  color: #c7cbe0;
+  border: 1px solid #34415b;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.backlog-acoes button:hover {
+  background: #6250df;
+  color: #ffffff;
+  border-color: #6250df;
+}
+
+.backlog-acoes svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ===== ESPAÇAMENTO SUPERIOR DO BACKLOG ===== */
+
+body:has(.backlog-lista) .main-content {
+  padding-top: 45px;
+}
+
+
+/* ===== LINKS DO MENU LATERAL ===== */
+
+.navigation a.nav-item {
+  text-decoration: none;
+}
+
+/* ===== BACKLOG: BOTÃO VISÍVEL SOMENTE COM LOGIN ===== */
+
+#adicionar-backlog[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+#adicionar-backlog:not([hidden]) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #6250df;
+  color: #ffffff;
+}
+
+
