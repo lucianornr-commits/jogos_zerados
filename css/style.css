@@ -1866,3 +1866,199 @@ body:has(.backlog-lista) .main-content {
 }
 
 
+/* =========================================
+   DROPADOS — MODAL DE CADASTRO
+========================================= */
+
+#modal-dropados[hidden] {
+  display: none !important;
+}
+
+#modal-dropados.aberto {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+#modal-dropados .modal-content {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  border: 1px solid #34415c;
+  border-radius: 14px;
+  background: #151f31;
+  color: #fff;
+}
+
+#modal-dropados h2 {
+  margin: 0 0 24px;
+  font-size: 22px;
+}
+
+#form-dropados {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#form-dropados label {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#form-dropados input,
+#form-dropados select,
+#form-dropados textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #34415c;
+  border-radius: 8px;
+  background: #0b1220;
+  color: #fff;
+  font: inherit;
+}
+
+#form-dropados input:focus,
+#form-dropados select:focus,
+#form-dropados textarea:focus {
+  outline: none;
+  border-color: #7665f2;
+}
+
+#form-dropados textarea {
+  resize: vertical;
+}
+
+.tempo-dropados {
+  display: flex;
+  gap: 12px;
+}
+
+.tempo-dropados input {
+  flex: 1;
+  min-width: 0;
+}
+
+#form-dropados .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#form-dropados .modal-actions button {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#cancelar-dropado {
+  background: #34415c;
+}
+
+#salvar-dropado {
+  background: #6250df;
+}
+
+/* DROPADOS — OCULTAR BOTÃO SEM LOGIN */
+#adicionar-dropado[hidden] {
+  display: none !important;
+}
+
+
+/* =========================================
+   DROPADOS — BOTÃO LER MOTIVO
+========================================= */
+
+.botao-ler-motivo {
+  background: #6250df;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.botao-ler-motivo:hover {
+  background: #7665f2;
+}
+
+/* =========================================
+   DROPADOS — JANELA DO MOTIVO
+========================================= */
+
+#modal-motivo-dropado[hidden] {
+  display: none !important;
+}
+
+#modal-motivo-dropado {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.motivo-dropado-conteudo {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 550px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 30px;
+  border: 1px solid #34415c;
+  border-radius: 14px;
+  background: #151f31;
+  color: #ffffff;
+}
+
+#motivo-dropado-titulo {
+  margin: 0 0 20px;
+  font-size: 22px;
+  color: #ffffff;
+}
+
+#motivo-dropado-texto {
+  margin: 0 0 28px;
+  color: #cbd5e1;
+  font-size: 15px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+#fechar-motivo-dropado {
+  display: block;
+  margin-left: auto;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 8px;
+  background: #6250df;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#fechar-motivo-dropado:hover {
+  background: #7665f2;
+}
