@@ -1591,4 +1591,32 @@ function fecharJanelaReview() {
 // Fechar pelo botão X
 fecharReview.addEventListener("click", fecharJanelaReview);
 
+/* =========================================
+   LOGIN MOBILE — ABRIR E FECHAR
+   ========================================= */
 
+const botaoLoginMobile = document.getElementById("abrir-login-mobile");
+const janelaLoginMobile = document.querySelector(".sidebar-login");
+
+if (botaoLoginMobile && janelaLoginMobile) {
+
+  // Abrir janela
+  botaoLoginMobile.addEventListener("click", () => {
+    janelaLoginMobile.classList.add("login-mobile-aberto");
+  });
+
+  // Fechar tocando no fundo escuro
+  janelaLoginMobile.addEventListener("click", (evento) => {
+    if (evento.target === janelaLoginMobile) {
+      janelaLoginMobile.classList.remove("login-mobile-aberto");
+    }
+  });
+
+  // Fechar pressionando ESC
+  document.addEventListener("keydown", (evento) => {
+    if (evento.key === "Escape") {
+      janelaLoginMobile.classList.remove("login-mobile-aberto");
+    }
+  });
+
+}

@@ -2062,3 +2062,8 @@ body:has(.backlog-lista) .main-content {
 #fechar-motivo-dropado:hover {
   background: #7665f2;
 }
+
+/* Ocultar botão Login no desktop */
+.navigation .nav-item.nav-login-mobile {
+  display: none;
+}

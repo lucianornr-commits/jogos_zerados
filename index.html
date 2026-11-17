@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meus Jogos Zerados</title>
+
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css" media="(max-width: 768px)">
+
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="icon" type="image/png" href="favicon.png">
 </head>
@@ -35,13 +38,24 @@
   <i data-lucide="target"></i><span>Desafios</span>
 </button>
 
-        <button class="nav-item" data-section="aquisicoes">
-          <i data-lucide="shopping-cart"></i><span>Aquisições</span>
-        </button>
         <button class="nav-item" data-section="hi-scores">
-          <i data-lucide="chart-no-axes-column-increasing"></i><span>Hi-Scores</span>
-        </button>
-      </nav>
+  <i data-lucide="chart-no-axes-column-increasing"></i>
+  <span>Hi-Scores</span>
+</button>
+
+<!-- LOGIN EXCLUSIVO DO MENU MOBILE -->
+<button
+  type="button"
+  class="nav-item nav-login-mobile"
+  id="abrir-login-mobile"
+  aria-haspopup="dialog"
+  aria-controls="modal-login"
+>
+  <i data-lucide="user-round"></i>
+  <span>Login</span>
+</button>
+
+</nav>
 
       
 <!-- ===== LOGIN NA BARRA LATERAL ===== -->
