@@ -646,7 +646,7 @@ function atualizarAnosHistorico() {
   // Preencher o seletor
   seletor.innerHTML = "";
 
-  for (let ano = anoAtual; ano >= primeiroAno; ano--) {
+  for (let ano = anoAtual - 1; ano >= primeiroAno; ano--) {
     const opcao = document.createElement("option");
 
     opcao.value = String(ano);
@@ -659,7 +659,7 @@ function atualizarAnosHistorico() {
   if ([...seletor.options].some(opcao => opcao.value === anoSelecionado)) {
     seletor.value = anoSelecionado;
   } else {
-    seletor.value = String(anoAtual);
+    seletor.value = String(anoAtual - 1);
   }
 
 }
