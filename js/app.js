@@ -620,7 +620,7 @@ function atualizarTempoAno() {
 
   // Atualizar o tempo exibido
   document.querySelector("#tempo-ano").textContent =
-    `${horas}H ${String(minutos).padStart(2, "0")}M`;
+    `${horas}h ${String(minutos).padStart(2, "0")}m`;
 
 }
 
@@ -694,7 +694,7 @@ function atualizarHistoricoAno() {
     totalJogos;
 
   document.querySelector("#historico-horas").textContent =
-    `${horas}H ${String(minutos).padStart(2, "0")}M`;
+    `${horas}h ${String(minutos).padStart(2, "0")}m`;
 
 }
 
