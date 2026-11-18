@@ -1236,7 +1236,7 @@ background-size: 16px;
 
 #btn-zerar-filtros {
   align-self: center;
-  transform: translateX(6px);
+  transform: translateX(1px);
   padding: 7px 12px;
 
   background-color: #54217d;
@@ -1473,7 +1473,7 @@ background-size: 16px;
   grid-row: 2;
   justify-self: start;
   align-self: center;
-  margin-left: 10px;
+  margin-left: 17px;
 }
 
 /* ===== ALINHAMENTO DOS RÓTULOS DOS FILTROS ===== */
@@ -2066,4 +2066,18 @@ body:has(.backlog-lista) .main-content {
 /* Ocultar botão Login no desktop */
 .navigation .nav-item.nav-login-mobile {
   display: none;
+}
+
+/* ===== ESPAÇAMENTOS SOMENTE DESKTOP ===== */
+
+@media (min-width: 769px) {
+
+  .barra-filtros {
+    margin-top: 8px;
+  }
+
+  .galeria-jogos {
+    margin-top: 8px;
+  }
+
 }
